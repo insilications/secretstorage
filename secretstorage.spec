@@ -6,9 +6,9 @@
 #
 Name     : secretstorage
 Version  : 2.3.1
-Release  : 2
-URL      : https://pypi.python.org/packages/a5/a5/0830cfe34a4cfd0d1c3c8b614ede1edb2aaf999091ac8548dd19cb352e79/SecretStorage-2.3.1.tar.gz
-Source0  : https://pypi.python.org/packages/a5/a5/0830cfe34a4cfd0d1c3c8b614ede1edb2aaf999091ac8548dd19cb352e79/SecretStorage-2.3.1.tar.gz
+Release  : 3
+URL      : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz
+Source0  : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz
 Source99 : https://pypi.python.org/packages/a5/a5/0830cfe34a4cfd0d1c3c8b614ede1edb2aaf999091ac8548dd19cb352e79/SecretStorage-2.3.1.tar.gz.asc
 Summary  : Python bindings to FreeDesktop.org Secret Service API
 Group    : Development/Tools
@@ -39,20 +39,27 @@ python components for the secretstorage package.
 %setup -q -n SecretStorage-2.3.1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1487876125
+export SOURCE_DATE_EPOCH=1503079912
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1487876125
+export SOURCE_DATE_EPOCH=1503079912
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+/usr/lib/python2*/*
+/usr/lib/python3*/*
