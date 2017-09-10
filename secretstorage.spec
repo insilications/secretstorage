@@ -6,13 +6,14 @@
 #
 Name     : secretstorage
 Version  : 2.3.1
-Release  : 3
+Release  : 4
 URL      : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz
 Source0  : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz
-Source99 : https://pypi.python.org/packages/a5/a5/0830cfe34a4cfd0d1c3c8b614ede1edb2aaf999091ac8548dd19cb352e79/SecretStorage-2.3.1.tar.gz.asc
+Source99 : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz.asc
 Summary  : Python bindings to FreeDesktop.org Secret Service API
 Group    : Development/Tools
 License  : BSD-3-Clause
+Requires: secretstorage-legacypython
 Requires: secretstorage-python
 Requires: cryptography
 BuildRequires : cryptography
@@ -27,9 +28,18 @@ BuildRequires : setuptools
 :target: https://travis-ci.org/mitya57/secretstorage
 :alt: Travis CI status
 
+%package legacypython
+Summary: legacypython components for the secretstorage package.
+Group: Default
+
+%description legacypython
+legacypython components for the secretstorage package.
+
+
 %package python
 Summary: python components for the secretstorage package.
 Group: Default
+Requires: secretstorage-legacypython
 
 %description python
 python components for the secretstorage package.
@@ -43,12 +53,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1503079912
+export SOURCE_DATE_EPOCH=1505071239
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1503079912
+export SOURCE_DATE_EPOCH=1505071239
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
@@ -59,7 +69,10 @@ echo ----[ mark ]----
 %files
 %defattr(-,root,root,-)
 
-%files python
+%files legacypython
 %defattr(-,root,root,-)
 /usr/lib/python2*/*
+
+%files python
+%defattr(-,root,root,-)
 /usr/lib/python3*/*
