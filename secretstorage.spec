@@ -5,21 +5,24 @@
 # Source0 file verified with key 0xD6FE710363F85DD3 (mitya57@gmail.com)
 #
 Name     : secretstorage
-Version  : 2.3.1
-Release  : 19
-URL      : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz
-Source0  : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz
-Source99 : http://pypi.debian.net/SecretStorage/SecretStorage-2.3.1.tar.gz.asc
+Version  : 3.0.1
+Release  : 20
+URL      : http://pypi.debian.net/SecretStorage/SecretStorage-3.0.1.tar.gz
+Source0  : http://pypi.debian.net/SecretStorage/SecretStorage-3.0.1.tar.gz
+Source99 : http://pypi.debian.net/SecretStorage/SecretStorage-3.0.1.tar.gz.asc
 Summary  : Python bindings to FreeDesktop.org Secret Service API
 Group    : Development/Tools
 License  : BSD-3-Clause
 Requires: secretstorage-python3
+Requires: secretstorage-license
 Requires: secretstorage-python
 Requires: cryptography
+Requires: jeepney
+BuildRequires : buildreq-distutils3
 BuildRequires : cryptography
+BuildRequires : jeepney
 BuildRequires : pbr
 BuildRequires : pip
-
 BuildRequires : python3-dev
 BuildRequires : setuptools
 
@@ -27,6 +30,17 @@ BuildRequires : setuptools
 .. image:: https://api.travis-ci.org/mitya57/secretstorage.svg
 :target: https://travis-ci.org/mitya57/secretstorage
 :alt: Travis CI status
+.. image:: https://codecov.io/gh/mitya57/secretstorage/branch/master/graph/badge.svg
+:target: https://codecov.io/gh/mitya57/secretstorage
+:alt: Coverage status
+
+%package license
+Summary: license components for the secretstorage package.
+Group: Default
+
+%description license
+license components for the secretstorage package.
+
 
 %package python
 Summary: python components for the secretstorage package.
@@ -47,18 +61,20 @@ python3 components for the secretstorage package.
 
 
 %prep
-%setup -q -n SecretStorage-2.3.1
+%setup -q -n SecretStorage-3.0.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1518380236
+export SOURCE_DATE_EPOCH=1532311299
 python3 setup.py build -b py3
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/secretstorage
+cp LICENSE %{buildroot}/usr/share/doc/secretstorage/LICENSE
 python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -66,6 +82,10 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/secretstorage/LICENSE
 
 %files python
 %defattr(-,root,root,-)
