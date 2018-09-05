@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xD6FE710363F85DD3 (mitya57@gmail.com)
 #
 Name     : secretstorage
-Version  : 3.0.1
-Release  : 20
-URL      : http://pypi.debian.net/SecretStorage/SecretStorage-3.0.1.tar.gz
-Source0  : http://pypi.debian.net/SecretStorage/SecretStorage-3.0.1.tar.gz
-Source99 : http://pypi.debian.net/SecretStorage/SecretStorage-3.0.1.tar.gz.asc
+Version  : 3.1.0
+Release  : 21
+URL      : https://files.pythonhosted.org/packages/17/7a/683ce8d41b0b392199f1f6273a5cc81a0583b886e799786b7add5750817f/SecretStorage-3.1.0.tar.gz
+Source0  : https://files.pythonhosted.org/packages/17/7a/683ce8d41b0b392199f1f6273a5cc81a0583b886e799786b7add5750817f/SecretStorage-3.1.0.tar.gz
+Source99 : https://files.pythonhosted.org/packages/17/7a/683ce8d41b0b392199f1f6273a5cc81a0583b886e799786b7add5750817f/SecretStorage-3.1.0.tar.gz.asc
 Summary  : Python bindings to FreeDesktop.org Secret Service API
 Group    : Development/Tools
 License  : BSD-3-Clause
@@ -19,12 +19,6 @@ Requires: secretstorage-python
 Requires: cryptography
 Requires: jeepney
 BuildRequires : buildreq-distutils3
-BuildRequires : cryptography
-BuildRequires : jeepney
-BuildRequires : pbr
-BuildRequires : pip
-BuildRequires : python3-dev
-BuildRequires : setuptools
 
 %description
 .. image:: https://api.travis-ci.org/mitya57/secretstorage.svg
@@ -33,6 +27,9 @@ BuildRequires : setuptools
 .. image:: https://codecov.io/gh/mitya57/secretstorage/branch/master/graph/badge.svg
 :target: https://codecov.io/gh/mitya57/secretstorage
 :alt: Coverage status
+.. image:: https://readthedocs.org/projects/secretstorage/badge/?version=latest
+:target: https://secretstorage.readthedocs.io/en/latest/
+:alt: ReadTheDocs status
 
 %package license
 Summary: license components for the secretstorage package.
@@ -61,14 +58,14 @@ python3 components for the secretstorage package.
 
 
 %prep
-%setup -q -n SecretStorage-3.0.1
+%setup -q -n SecretStorage-3.1.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532311299
+export SOURCE_DATE_EPOCH=1536145054
 python3 setup.py build -b py3
 
 %install
