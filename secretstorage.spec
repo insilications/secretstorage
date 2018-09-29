@@ -6,7 +6,7 @@
 #
 Name     : secretstorage
 Version  : 3.1.0
-Release  : 21
+Release  : 22
 URL      : https://files.pythonhosted.org/packages/17/7a/683ce8d41b0b392199f1f6273a5cc81a0583b886e799786b7add5750817f/SecretStorage-3.1.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/17/7a/683ce8d41b0b392199f1f6273a5cc81a0583b886e799786b7add5750817f/SecretStorage-3.1.0.tar.gz
 Source99 : https://files.pythonhosted.org/packages/17/7a/683ce8d41b0b392199f1f6273a5cc81a0583b886e799786b7add5750817f/SecretStorage-3.1.0.tar.gz.asc
@@ -42,7 +42,7 @@ license components for the secretstorage package.
 %package python
 Summary: python components for the secretstorage package.
 Group: Default
-Requires: secretstorage-python3
+Requires: secretstorage-python3 = %{version}-%{release}
 
 %description python
 python components for the secretstorage package.
@@ -65,14 +65,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536145054
-python3 setup.py build -b py3
+export SOURCE_DATE_EPOCH=1538247863
+python3 setup.py build
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/secretstorage
 cp LICENSE %{buildroot}/usr/share/doc/secretstorage/LICENSE
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -81,7 +81,7 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/doc/secretstorage/LICENSE
 
 %files python
