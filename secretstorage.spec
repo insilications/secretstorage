@@ -6,7 +6,7 @@
 #
 Name     : secretstorage
 Version  : 3.1.2
-Release  : 31
+Release  : 32
 URL      : https://files.pythonhosted.org/packages/fd/9f/36197c75d9a09b1ab63f56cb985af6cd858ca3fc41fd9cd890ce69bae5b9/SecretStorage-3.1.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/fd/9f/36197c75d9a09b1ab63f56cb985af6cd858ca3fc41fd9cd890ce69bae5b9/SecretStorage-3.1.2.tar.gz
 Source1  : https://files.pythonhosted.org/packages/fd/9f/36197c75d9a09b1ab63f56cb985af6cd858ca3fc41fd9cd890ce69bae5b9/SecretStorage-3.1.2.tar.gz.asc
@@ -54,7 +54,9 @@ python components for the secretstorage package.
 Summary: python3 components for the secretstorage package.
 Group: Default
 Requires: python3-core
-Provides: pypi(SecretStorage)
+Provides: pypi(secretstorage)
+Requires: pypi(cryptography)
+Requires: pypi(jeepney)
 
 %description python3
 python3 components for the secretstorage package.
@@ -69,7 +71,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582923961
+export SOURCE_DATE_EPOCH=1583509244
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
